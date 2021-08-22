@@ -1,6 +1,6 @@
 # notification_blocker
 
-A new Flutter project.
+Notification blocker
 
 ## Getting Started
 

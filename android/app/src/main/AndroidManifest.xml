@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.notification_blocker">
+    package="com.notification.blocker.hoan.vu.notification_blocker">
    <application
         android:label="notification_blocker"
         android:icon="@mipmap/ic_launcher">
