@@ -23,3 +23,10 @@ const kTitleTextStyle = TextStyle(
     fontSize: 50.0,
     fontWeight: FontWeight.bold
 );
+
+const kTextFieldDecoration = InputDecoration(
+  hintText: 'Enter a value',
+  hintStyle: TextStyle(color: Colors.grey),
+  contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+  border: InputBorder.none,
+);

@@ -6,6 +6,7 @@ import 'package:notification_blocker/constants.dart';
 import 'package:notification_blocker/components/icon_content.dart';
 import 'package:notification_blocker/components/reusable_card.dart';
 import 'package:notification_blocker/screens/settings_screen.dart';
+import 'package:notification_blocker/screens/blocked_apps_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static const String id = 'main_screen';
@@ -61,7 +62,8 @@ class _MainScreenState extends State<MainScreen> {
             child: ReusableCard(
               onPress: () {
                 setState(() {
-                  // on press blocked apps
+                  //Go to blocked apps screen.
+                  Navigator.pushNamed(context, BlockedAppsScreen.id);
                 });
               },
               colour: kCardColor,
