@@ -2,36 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:notification_blocker/components/icon_content.dart';
 import 'package:notification_blocker/constants.dart';
+import 'package:notification_blocker/components/icon_content.dart';
 import 'package:notification_blocker/components/reusable_card.dart';
+import 'package:notification_blocker/screens/settings_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static const String id = 'main_screen';
 
-  const MainScreen({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _counter = 0;
   bool _switchValue = true;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: kAppTitle,
         actions: [
           IconButton(
             icon: const  Icon(
@@ -39,7 +31,8 @@ class _MainScreenState extends State<MainScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              // do something
+              //Go to settings screen.
+              Navigator.pushNamed(context, SettingsScreen.id);
             },
           )
         ],

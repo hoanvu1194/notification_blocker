@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notification_blocker/screens/main_screen.dart';
+import 'package:notification_blocker/screens/settings_screen.dart';
 
 void main() => runApp(NotificationBlocker());
 
@@ -9,7 +10,8 @@ class NotificationBlocker extends StatelessWidget {
     return MaterialApp(
       initialRoute: MainScreen.id,
       routes: {
-        MainScreen.id: (context) => const MainScreen(title: 'Notification Blocker'),
+        MainScreen.id: (context) => const MainScreen(),
+        SettingsScreen.id: (context) => const SettingsScreen(),
       },
     );
   }
