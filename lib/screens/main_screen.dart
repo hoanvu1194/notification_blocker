@@ -7,6 +7,8 @@ import 'package:notification_blocker/components/icon_content.dart';
 import 'package:notification_blocker/components/reusable_card.dart';
 import 'package:notification_blocker/screens/settings_screen.dart';
 import 'package:notification_blocker/screens/blocked_apps_screen.dart';
+import 'package:notification_blocker/screens/schedule_time_screen.dart';
+import 'package:notification_blocker/screens/missed_notifications_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static const String id = 'main_screen';
@@ -85,7 +87,8 @@ class _MainScreenState extends State<MainScreen> {
             child: ReusableCard(
               onPress: () {
                 setState(() {
-                  // on press Schedule time
+                  //Go to schedule time screen.
+                  Navigator.pushNamed(context, ScheduleTimeScreen.id);
                 });
               },
               colour: kCardColor,
@@ -107,7 +110,8 @@ class _MainScreenState extends State<MainScreen> {
             child: ReusableCard(
               onPress: () {
                 setState(() {
-                  // on press missed notifications
+                  //Go to missed notifications screen.
+                  Navigator.pushNamed(context, MissedNotificationsScreen.id);
                 });
               },
               colour: kCardColor,
