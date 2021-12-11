@@ -13,6 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^9.2.0
   device_apps: ^2.1.1
+  global_configuration: ^2.0.0-nullsafety.1
 
 dev_dependencies:
   flutter_test:

@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:device_apps/device_apps.dart';
 
+import 'package:global_configuration/global_configuration.dart';
+import 'package:notification_blocker/config/app_settings.config.dart';
 import 'package:notification_blocker/constants.dart';
-
 import 'package:notification_blocker/components/blocked_app_item.dart';
 
 class BlockedAppsScreen extends StatefulWidget {
   static const String id = 'blocked_apps_screen';
   final List apps;
 
-  List<bool?> _checkboxValues = List.filled(1, false);
+  List<bool?> _checkboxValues = [];
 
   BlockedAppsScreen({Key? key, required this.apps}) : super(key: key);
 
@@ -70,26 +71,40 @@ class _BlockedAppsScreenState extends State<BlockedAppsScreen> {
 
             // list apps
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    for (int i = 0; i < widget.apps.length; i++)
-                      BlockedAppItem(
-                        iconData: widget.apps[i] is ApplicationWithIcon
+                child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  for (int i = 0; i < widget.apps.length; i++)
+                    BlockedAppItem(
+                      iconData: widget.apps[i] is ApplicationWithIcon
                           ? widget.apps[i].icon
                           : null,
-                        appName: widget.apps[i].appName,
-                        checkboxValue: widget._checkboxValues[i],
-                        onCheckboxChanged: (bool? value) {
-                          setState(() {
-                            widget._checkboxValues[i] = value;
-                          });
-                        },
-                      ),
-                  ],
-                ),
-              )
-            )
+                      appName: widget.apps[i].appName,
+                      checkboxValue: GlobalConfiguration()
+                              .getValue(kBlockedAppsKey)
+                              .contains(widget.apps[i].appName)
+                          ? true
+                          : false,
+                      onCheckboxChanged: (bool? value) {
+                        setState(() {
+                          widget._checkboxValues[i] = value;
+                        });
+                        List<String> blockedApps =
+                            GlobalConfiguration().getValue(kBlockedAppsKey);
+                        if (value == true &&
+                            !blockedApps.contains(widget.apps[i].appName)) {
+                          blockedApps.add(widget.apps[i].appName);
+                        } else if (value == false &&
+                            blockedApps.contains(widget.apps[i].appName)) {
+                          blockedApps.remove(widget.apps[i].appName);
+                        }
+                        GlobalConfiguration()
+                            .updateValue("blockedApps", blockedApps);
+                      },
+                    ),
+                ],
+              ),
+            ))
           ],
         ),
       ),
