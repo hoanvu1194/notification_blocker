@@ -38,45 +38,58 @@ class _BlockedAppsScreenState extends State<BlockedAppsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             // search bar
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
-                const Icon(
-                  FontAwesomeIcons.search,
-                  size: 20.0,
-                  color: kLabelTextColor,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      FontAwesomeIcons.search,
+                      size: 20.0,
+                      color: kLabelTextColor,
+                    ),
+                    Expanded(
+                      child: TextField(
+                        keyboardType: TextInputType.text,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(color: Colors.black),
+                        onChanged: (value) {},
+                        decoration:
+                            kTextFieldDecoration.copyWith(hintText: 'Search'),
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    textAlign: TextAlign.left,
-                    style: const TextStyle(color: Colors.black),
-                    onChanged: (value) {
-
-                    },
-                    decoration: kTextFieldDecoration.copyWith(hintText: 'Search'),
-                  ),
+                const Divider(
+                  color: kLabelTextColor,
+                  height: 1,
+                  thickness: 3.0,
                 ),
               ],
             ),
-            const Divider(
-              color: kLabelTextColor,
-              height: 1,
-              thickness: 3.0,
-            ),
 
             // list apps
-            for (int i = 0; i < widget.apps.length; i++)
-              BlockedAppItem(
-                iconData: widget.apps[i] is ApplicationWithIcon ? widget.apps[i].icon : null,
-                appName: widget.apps[i].appName,
-                checkboxValue: widget._checkboxValues[i],
-                onCheckboxChanged: (bool? value) {
-                  setState(() {
-                    widget._checkboxValues[i] = value;
-                  });
-                },
-              ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    for (int i = 0; i < widget.apps.length; i++)
+                      BlockedAppItem(
+                        iconData: widget.apps[i] is ApplicationWithIcon
+                          ? widget.apps[i].icon
+                          : null,
+                        appName: widget.apps[i].appName,
+                        checkboxValue: widget._checkboxValues[i],
+                        onCheckboxChanged: (bool? value) {
+                          setState(() {
+                            widget._checkboxValues[i] = value;
+                          });
+                        },
+                      ),
+                  ],
+                ),
+              )
+            )
           ],
         ),
       ),
