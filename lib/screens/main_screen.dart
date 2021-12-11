@@ -69,6 +69,7 @@ class _MainScreenState extends State<MainScreen> {
                   includeAppIcons: true,
                   includeSystemApps: true
                 );
+                apps.sort((a, b) => sortAppNames(a, b));
                 setState(() {
                   //Go to blocked apps screen.
                   Navigator.push(
@@ -146,3 +147,8 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
+int sortAppNames(Application a, Application b) {
+  String propertyA = a.appName.toLowerCase();
+  String propertyB = b.appName.toLowerCase();
+  return propertyA.compareTo(propertyB);
+}
