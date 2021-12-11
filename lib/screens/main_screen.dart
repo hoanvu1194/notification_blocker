@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:device_apps/device_apps.dart';
 
 import 'package:notification_blocker/constants.dart';
 import 'package:notification_blocker/components/icon_content.dart';
@@ -62,10 +63,20 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Expanded(
             child: ReusableCard(
-              onPress: () {
+              onPress: () async {
+                List apps = await DeviceApps.getInstalledApplications(
+                  onlyAppsWithLaunchIntent: true,
+                  includeAppIcons: true,
+                  includeSystemApps: true
+                );
                 setState(() {
                   //Go to blocked apps screen.
-                  Navigator.pushNamed(context, BlockedAppsScreen.id);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlockedAppsScreen(apps: apps)
+                    )
+                  );
                 });
               },
               colour: kCardColor,

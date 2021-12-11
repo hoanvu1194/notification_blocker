@@ -15,7 +15,7 @@ class NotificationBlocker extends StatelessWidget {
       routes: {
         MainScreen.id: (context) => const MainScreen(),
         SettingsScreen.id: (context) => const SettingsScreen(),
-        BlockedAppsScreen.id: (context) => const BlockedAppsScreen(),
+        // BlockedAppsScreen.id: (context) => const BlockedAppsScreen(),
         ScheduleTimeScreen.id: (context) => const ScheduleTimeScreen(),
         MissedNotificationsScreen.id: (context) => const MissedNotificationsScreen(),
       },

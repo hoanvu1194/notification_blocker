@@ -30,3 +30,6 @@ const kTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
   border: InputBorder.none,
 );
+
+const kAppIconWidth = 50.0;
+const kAppIconHeight = 35.0;
