@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:device_apps/device_apps.dart';
 
 import 'package:notification_blocker/constants.dart';
 import 'package:notification_blocker/components/icon_content.dart';
@@ -10,6 +10,8 @@ import 'package:notification_blocker/screens/settings_screen.dart';
 import 'package:notification_blocker/screens/blocked_apps_screen.dart';
 import 'package:notification_blocker/screens/schedule_time_screen.dart';
 import 'package:notification_blocker/screens/missed_notifications_screen.dart';
+
+import 'package:notification_blocker/models/apps_data.dart';
 
 class MainScreen extends StatefulWidget {
   static const String id = 'main_screen';
@@ -30,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
         title: kAppTitle,
         actions: [
           IconButton(
-            icon: const  Icon(
+            icon: const Icon(
               Icons.settings,
               color: Colors.white,
             ),
@@ -63,22 +65,12 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Expanded(
             child: ReusableCard(
-              onPress: () async {
-                List apps = await DeviceApps.getInstalledApplications(
-                  onlyAppsWithLaunchIntent: true,
-                  includeAppIcons: true,
-                  includeSystemApps: true
-                );
-                apps.sort((a, b) => sortAppNames(a, b));
-                setState(() {
-                  //Go to blocked apps screen.
-                  Navigator.push(
+              onPress: () {
+                //Go to blocked apps screen.
+                Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BlockedAppsScreen(apps: apps)
-                    )
-                  );
-                });
+                        builder: (context) => BlockedAppsScreen()));
               },
               colour: kCardColor,
               cardChild: Container(
@@ -89,6 +81,52 @@ class _MainScreenState extends State<MainScreen> {
                     IconContent(
                       iconData: FontAwesomeIcons.ban,
                       label: 'Blocked Apps',
+                    ),
+                    Table(
+                      columnWidths: const <int, TableColumnWidth>{
+                        0: FlexColumnWidth(),
+                        1: FlexColumnWidth(),
+                      },
+                      defaultVerticalAlignment:
+                          TableCellVerticalAlignment.middle,
+                      children: <TableRow>[
+                        TableRow(
+                          children: <Widget>[
+                            Text(Provider.of<AppsData>(context)
+                                        .appsCount >
+                                    0
+                                ? Provider.of<AppsData>(context)
+                                    .blockedApps[0]
+                                    .name
+                                : ''),
+                            Text(Provider.of<AppsData>(context)
+                                        .appsCount >
+                                    1
+                                ? Provider.of<AppsData>(context)
+                                    .blockedApps[1]
+                                    .name
+                                : ''),
+                          ],
+                        ),
+                        TableRow(
+                          children: <Widget>[
+                            Text(Provider.of<AppsData>(context)
+                                        .appsCount >
+                                    2
+                                ? Provider.of<AppsData>(context)
+                                    .blockedApps[2]
+                                    .name
+                                : ''),
+                            Text(Provider.of<AppsData>(context)
+                                        .appsCount >
+                                    3
+                                ? Provider.of<AppsData>(context)
+                                    .blockedApps[3]
+                                    .name
+                                : ''),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -145,10 +183,4 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
-}
-
-int sortAppNames(Application a, Application b) {
-  String propertyA = a.appName.toLowerCase();
-  String propertyB = b.appName.toLowerCase();
-  return propertyA.compareTo(propertyB);
 }

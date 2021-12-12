@@ -1,23 +1,21 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:device_apps/device_apps.dart';
 
 import 'package:notification_blocker/constants.dart';
 
 class AppItem extends StatelessWidget {
+  final Uint8List iconData;
+  final String appName;
+  final Function(bool?) checkboxCallback;
+  final bool isChecked;
+
   AppItem({
     required this.iconData,
     required this.appName,
-    required this.checkboxValue,
-    required this.onCheckboxChanged,
+    required this.isChecked,
+    required this.checkboxCallback,
   });
-
-  final Uint8List iconData;
-  final String appName;
-  final ValueChanged<bool?>? onCheckboxChanged;
-
-  bool? checkboxValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,7 @@ class AppItem extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
             ),
-            Checkbox(value: checkboxValue, onChanged: onCheckboxChanged),
+            Checkbox(value: isChecked, onChanged: checkboxCallback),
           ],
         ),
         const Divider(
@@ -49,4 +47,3 @@ class AppItem extends StatelessWidget {
     );
   }
 }
-
