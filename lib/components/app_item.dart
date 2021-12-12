@@ -5,8 +5,8 @@ import 'package:device_apps/device_apps.dart';
 
 import 'package:notification_blocker/constants.dart';
 
-class BlockedAppItem extends StatelessWidget {
-  BlockedAppItem({
+class AppItem extends StatelessWidget {
+  AppItem({
     required this.iconData,
     required this.appName,
     required this.checkboxValue,

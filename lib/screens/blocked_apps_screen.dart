@@ -6,7 +6,7 @@ import 'package:device_apps/device_apps.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:notification_blocker/config/app_settings.config.dart';
 import 'package:notification_blocker/constants.dart';
-import 'package:notification_blocker/components/blocked_app_item.dart';
+import 'package:notification_blocker/components/app_item.dart';
 
 class BlockedAppsScreen extends StatefulWidget {
   static const String id = 'blocked_apps_screen';
@@ -75,7 +75,7 @@ class _BlockedAppsScreenState extends State<BlockedAppsScreen> {
               child: Column(
                 children: [
                   for (int i = 0; i < widget.apps.length; i++)
-                    BlockedAppItem(
+                    AppItem(
                       iconData: widget.apps[i] is ApplicationWithIcon
                           ? widget.apps[i].icon
                           : null,
