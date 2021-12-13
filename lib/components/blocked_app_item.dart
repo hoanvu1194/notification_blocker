@@ -1,33 +1,49 @@
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import 'package:notification_blocker/constants.dart';
+import 'package:notification_blocker/models/app.dart';
+import 'package:notification_blocker/models/apps_data.dart';
+import 'package:provider/provider.dart';
 
 class BlockedAppItem extends StatelessWidget {
-  BlockedAppItem({
-    required this.iconData,
-    required this.appName,
-  });
+  int _index;
 
-  final Uint8List iconData;
-  final String appName;
+  BlockedAppItem(this._index);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Image.memory(
-          iconData,
-          width: kAppIconSmallWidth,
-          height: kAppIconSmallHeight,
+    List<App> blockedApps = Provider.of<AppsData>(context).blockedApps;
+    int blockedAppsCount = blockedApps.length;
+
+    if (blockedAppsCount == 0 || _index >= blockedAppsCount) {
+      return const Text('');
+    }
+
+    App app = blockedApps[_index];
+    String displayAppName = app.name;
+    if (displayAppName.length > kDisplayAppNameMaxCharacters) {
+      displayAppName =
+          displayAppName.substring(0, kDisplayAppNameMaxCharacters - 3) + '...';
+    }
+
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Image.memory(
+              app.iconData,
+              width: kAppIconSmallWidth,
+              height: kAppIconSmallHeight,
+            ),
+            Text(
+              displayAppName,
+            ),
+          ],
         ),
-        Text(
-          appName,
-          textAlign: TextAlign.left,
-        ),
-      ],
+      ),
     );
   }
 }
-

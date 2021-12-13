@@ -11,6 +11,7 @@ import 'package:notification_blocker/screens/blocked_apps_screen.dart';
 import 'package:notification_blocker/screens/schedule_time_screen.dart';
 import 'package:notification_blocker/screens/missed_notifications_screen.dart';
 
+import 'package:notification_blocker/components/blocked_app_item.dart';
 import 'package:notification_blocker/models/apps_data.dart';
 
 class MainScreen extends StatefulWidget {
@@ -27,6 +28,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int blockedAppsCount = Provider.of<AppsData>(context).blockedAppsCount;
+
     return Scaffold(
       appBar: AppBar(
         title: kAppTitle,
@@ -82,52 +85,30 @@ class _MainScreenState extends State<MainScreen> {
                       iconData: FontAwesomeIcons.ban,
                       label: 'Blocked Apps',
                     ),
-                    Table(
-                      columnWidths: const <int, TableColumnWidth>{
-                        0: FlexColumnWidth(),
-                        1: FlexColumnWidth(),
-                      },
-                      defaultVerticalAlignment:
-                          TableCellVerticalAlignment.middle,
-                      children: <TableRow>[
-                        TableRow(
-                          children: <Widget>[
-                            Text(Provider.of<AppsData>(context)
-                                        .appsCount >
-                                    0
-                                ? Provider.of<AppsData>(context)
-                                    .blockedApps[0]
-                                    .name
-                                : ''),
-                            Text(Provider.of<AppsData>(context)
-                                        .appsCount >
-                                    1
-                                ? Provider.of<AppsData>(context)
-                                    .blockedApps[1]
-                                    .name
-                                : ''),
-                          ],
-                        ),
-                        TableRow(
-                          children: <Widget>[
-                            Text(Provider.of<AppsData>(context)
-                                        .appsCount >
-                                    2
-                                ? Provider.of<AppsData>(context)
-                                    .blockedApps[2]
-                                    .name
-                                : ''),
-                            Text(Provider.of<AppsData>(context)
-                                        .appsCount >
-                                    3
-                                ? Provider.of<AppsData>(context)
-                                    .blockedApps[3]
-                                    .name
-                                : ''),
-                          ],
-                        ),
+                    Row(
+                      children: [
+                        BlockedAppItem(0),
+                        BlockedAppItem(1),
                       ],
                     ),
+                    Row(
+                      children: [
+                        BlockedAppItem(2),
+                        BlockedAppItem(3),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        BlockedAppItem(4),
+                        BlockedAppItem(5),
+                      ],
+                    ),
+                    if (blockedAppsCount > kMaxDisplayBlockedApps)
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                            '${blockedAppsCount - kMaxDisplayBlockedApps} more app(s) blocked'),
+                      ),
                   ],
                 ),
               ),

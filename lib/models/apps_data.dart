@@ -6,7 +6,11 @@ import 'package:notification_blocker/models/app.dart';
 class AppsData extends ChangeNotifier {
   List<App> _apps = [];
 
-  List<App> get blockedApps {
+  AppsData() {
+    initAppsList();
+  }
+
+  List<App> get apps {
     return _apps;
   }
 
@@ -14,8 +18,24 @@ class AppsData extends ChangeNotifier {
     return _apps.length;
   }
 
-  AppsData() {
-    initAppsList();
+  int get blockedAppsCount {
+    int blockedAppsCount = 0;
+    for (App app in _apps) {
+      if (app.isBlocked) {
+        blockedAppsCount++;
+      }
+    }
+    return blockedAppsCount;
+  }
+
+  List<App> get blockedApps {
+    List<App> blockedApps = [];
+    for (App app in _apps) {
+      if (app.isBlocked) {
+        blockedApps.add(app);
+      }
+    }
+    return blockedApps;
   }
 
   void initAppsList() async {

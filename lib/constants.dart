@@ -34,5 +34,8 @@ const kTextFieldDecoration = InputDecoration(
 const kAppIconWidth = 50.0;
 const kAppIconHeight = 35.0;
 
-const kAppIconSmallWidth = 30.0;
-const kAppIconSmallHeight = 20.0;
+const kAppIconSmallWidth = 50.0;
+const kAppIconSmallHeight = 30.0;
+
+const kMaxDisplayBlockedApps = 6;
+const kDisplayAppNameMaxCharacters = 15;

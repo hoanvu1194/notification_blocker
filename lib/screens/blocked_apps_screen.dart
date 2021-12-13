@@ -66,11 +66,6 @@ class _BlockedAppsScreenState extends State<BlockedAppsScreen> {
             Expanded(
               child: AppsList(),
             ),
-            // Expanded(
-            //   child: SingleChildScrollView(
-            //     child: AppsList(),
-            //   ),
-            // ),
           ],
         ),
       ),

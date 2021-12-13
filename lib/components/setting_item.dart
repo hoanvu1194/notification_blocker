@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:notification_blocker/constants.dart';
 
 class SettingItem extends StatelessWidget {
-  SettingItem({required this.label, required this.onPress});
-
   final String label;
   final VoidCallback onPress;
+
+  SettingItem({required this.label, required this.onPress});
 
   @override
   Widget build(BuildContext context) {

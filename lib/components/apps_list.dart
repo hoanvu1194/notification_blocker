@@ -13,9 +13,9 @@ class AppsList extends StatelessWidget {
           child: ListView.builder(
             padding: const EdgeInsets.all(10),
             physics: const BouncingScrollPhysics(),
-            itemCount: appsData.blockedApps.length,
+            itemCount: appsData.apps.length,
             itemBuilder: (context, index) {
-              final app = appsData.blockedApps[index];
+              final app = appsData.apps[index];
               return AppItem(
                 appName: app.name,
                 iconData: app.iconData,
